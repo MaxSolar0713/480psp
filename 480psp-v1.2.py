@@ -9,7 +9,7 @@ def vbitrate():
     global Y
     Y = 1
     global P
-    P = input("What bitrate for video? (kbps) ")
+    P = input("What bitrate for video? (kbps): ")
 def file_in():
     global I
     I = input("Please enter location of input file: ")
@@ -18,25 +18,25 @@ def file_out():
     O = input("Please enter location of output file: ")
 def bitrate():
     global A
-    A = input("What bitrate for audio? (kbps) ")
+    A = input("What bitrate for audio? (kbps): ")
 def aspect():
     global R
-    R = input("Height of Aspect ratio? ")
+    R = input("Height of Aspect ratio?: ")
     global S
-    S = input("Length of Aspect Ratio? ")
+    S = input("Length of Aspect Ratio?: ")
 def viddim():
     global j
-    j = input("What length? ")
+    j = input("What length?: ")
     global k
-    k = input("What height? ")
+    k = input("What height?: ")
 def help():
     print ("file_in(): changes file input")
     print ("file_out(): changes file output")
     print ("bitrate(): changes audio bitrate")
     print ("aspect(): changes aspect ratio")
     print ("viddim(): changes video dimensions")
-    print ("vbitrate(): changes the video bitrate")
-    print ("create(): outputs the command.")
+    print ("vbitrate(): changes video bitrate")
+    print ("create(): outputs the command")
 def create():
     print ("")
     print ("Here is your command!")
@@ -67,18 +67,18 @@ def run():
     file_in()
     file_out()
     # Asks if you want to change bitrates.
-    M = input("Would you like to change advanced settings? [y/n] ")
+    M = input("Would you like to change advanced settings? [y/N]: ")
     if M == "y":
-        br = input("Change audio bitrates? (y/n) ")
+        br = input("Change audio bitrates? [y/N]: ")
         if br == "y":
             bitrate()
-        vbr = input("Change video bitrates? (y/n) ")
+        vbr = input("Change video bitrates? [y/N]: ")
         if vbr == "y":
             vbitrate()
-        chg = input("Change aspect ratio? ")
+        chg = input("Change aspect ratio? [y/N]: ")
         if chg == "y":
             aspect()
-        d = input("Change video dimensions? ")
+        d = input("Change video dimensions? [y/N]: ")
         if d == "y":
             viddim()
     # THIS IS WHERE THE COMMAND IS PUT OUT.
