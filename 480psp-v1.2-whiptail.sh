@@ -12,7 +12,9 @@ k=480
 
 j=720
 
-function vbitrate() { y=1; read -p "What bitrate for video? (kbps): " p; }
+function whiptail() { whiptail --backtitle="PSP ffmpeg Encoder Script 1.2" $@; }
+
+function vbitrate() { y=1; p="$(whiptail --inputbox --title="Configure Video Bitrate" "What bitrate for video? (kbps)" 10 50)"; }
 
 function file_in() {
 
@@ -21,7 +23,7 @@ local success="FALSE"
 until [[ "$success" == "TRUE" ]]
 do
 
-    read -p "Please enter location of input file: " i
+    i="$(whiptail --title="Input File" --inputbox "Please enter the location of the input file:" 10 50)"
 
     if [[ "$i" == "~/"* ]]
     then
@@ -37,14 +39,14 @@ do
 
         echo "ERROR: '$i': No such file. Please choose a video file that actually exists."
 
-        echo ""
+        whiptail --title="ERROR" --ok-button="Retry" --msgbox "'$i': No such file. Please choose a video file that actually exists." 10 50
 
     elif [[ "$(file -b --mime-type "$i")" != "video/"* ]]
     then
 
         echo "ERROR: '$i' does not seem to be a valid video file."
 
-        echo ""
+        whiptail --title="ERROR" --ok-button="Retry" --msgbox "'$i' does not seem to be a valid video file." 10 50
 
     else
 
@@ -63,7 +65,7 @@ local success="FALSE"
 until [[ "$success" == "TRUE" ]]
 do
 
-    read -p "Please enter location of output file: " o
+    o="$(whiptail --title="Output File" --inputbox "Please enter the location of the ouput file:" 10 50)"
 
     if [[ "$o" == "~/"* ]]
     then
@@ -79,14 +81,14 @@ do
 
         echo "ERROR: '$(dirname "$o")': No such directory exists. Please choose a directory that exists."
 
-        echo ""
+        whiptail --title="ERROR" --ok-button="Retry" --msgbox "'$(dirname "$o")': No such directory exists. Please choose a directory that exists." 10 50
 
     elif [[ -f "$o" ]]
     then
 
         echo "ERROR: '$o': File already exists. Please choose a different filename."
 
-        echo ""
+        whiptail --title="ERROR" --ok-button="Retry" --msgbox "'$o': File already exists. Please choose a different filename." 10 50
 
     else
 
@@ -98,11 +100,11 @@ done
 
 }
 
-function bitrate() { read -p "What bitrate for audio? (kbps): " a; }
+function bitrate() { a="$(whiptail --title="Configure Audio Bitrate" --inputbox "What bitrate for audio? (kbps):" 10 50 "$a")"; }
 
-function aspect() { read -p "Height of Aspect ratio?: " r; read -p "Lenght of Aspect ratio?: " s; }
+function aspect() { r="$(whiptail --title="Configure Aspect Ratio" --inputbox "Height of aspect ratio?:" 10 50 "$r")"; s="$(whiptail --title="Configure Aspect Ratio" --inputbox "Height of aspect ratio?:" 10 50 "$s")"; }
 
-function viddim() { read -p "What length?: " j; read -p "What height?: " k; }
+function viddim() { j="$(whiptail --title="Configure Video Dimensions" --inputbox "What length?:" 10 50 "$j")"; k="$(whiptail --title="Configure Video Dimensions" --inputbox "What height?:" 10 50 "$k")"; }
 
 function show_help() {
 
@@ -118,12 +120,6 @@ create: outputs the command"
 
 function create() {
 
-    echo ""
-
-    echo "Here is your command!"
-
-    echo ""
-
     if [[ "$y" == "1" ]]
     then
 
@@ -135,13 +131,15 @@ function create() {
 
     fi
 
-    echo "$cmd"
+    whiptail --title="Command Generated" --yesno "Here is your command:
 
-    echo ""
+$cmd
 
-    read -p "Would you like to run this command now? [y/N]: " run_cmd_now
+Would you like to run this command now?" 10 50
 
-    if [[ "$run_cmd_now" == "Y" ]] || [[ "$run_cmd_now" == "y" ]]
+    ex=$?
+
+    if [[ "$ex" == "0" ]]
     then
 
         echo "RUNNING COMMAND..."
