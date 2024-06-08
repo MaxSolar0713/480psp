@@ -3,7 +3,7 @@
 480psp (codenamed MJX indev) is a python script that generates ffmpeg commands that generate PSP-Playable mp4 files. I tested this with my PSP-3000, so I don't know
 if any other psp models will work.
 
-Audio default bitrate is 128kbps. I didn't include video bitrate because ffmpeg causes bloat when you manually set it.
+Audio default bitrate is 160kbps aac, equivalent to 192kbps mp3. I didn't include video bitrate because ffmpeg causes bloat when you manually set it.
 
 I consider the core components complete, but they are probably still buggy and injection isn't done at all; My dev friend is helping me out in that department (probably to .sh it.)
 
