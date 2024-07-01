@@ -1,4 +1,5 @@
 Changelog for 480psp:
+
 1.2.0: Added some quality adjustment commands
 
 1.1.0: Reworked internal commands to make debugging easier
